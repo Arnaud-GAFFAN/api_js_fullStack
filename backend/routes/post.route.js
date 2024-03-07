@@ -1,15 +1,20 @@
-
 const express = require('express');
+const {getPosts, setPosts, editPost, deletePost} = require("../controllers/post.Controller");
 
 const route = express.Router();
 
-route.get('/', (req, res) => {
-    res.status(200).json({
-        message: "CC ici votre server a bien dématé merci"
-    })
-})
-route.post('/', (req, res) => {
-    res.json({message: req.body.message})
-})
+route.get('/', getPosts)
 
+route.post('/', setPosts)
+
+route.put('/:id', editPost)
+
+route.delete('/:id', deletePost)
+
+route.patch('/likes-posts/:id', (req, res) => {
+    res.json({message: "Un like: id : " + req.params.id})
+})
+route.patch('/dislikes-posts/:id', (req, res) => {
+    res.json({message: "Un like: id : " + req.params.id})
+})
 module.exports = route;
